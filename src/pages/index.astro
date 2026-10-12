@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
 import '../styles/global.css';
 
 const lang = 'id';
@@ -12,21 +13,16 @@ const lang = 'id';
   lang={lang}
 >
   <Hero lang={lang} />
+  <About lang={lang} />
 
-  <!-- Placeholder section untuk test anchor link -->
+  <!-- Placeholder: akan kita isi nanti -->
   <section id="projects" class="section container" style="padding-block: var(--space-24);">
     <span class="section-label">Proyek</span>
     <h2>Bagian proyek akan muncul di sini.</h2>
-    <p style="margin-top: var(--space-4); color: var(--color-text-muted);">
-      Ini placeholder. Nanti kita isi dengan section Projects.
-    </p>
   </section>
 
   <section id="contact" class="section container" style="padding-block: var(--space-24);">
     <span class="section-label">Kontak</span>
     <h2>Bagian kontak akan muncul di sini.</h2>
-    <p style="margin-top: var(--space-4); color: var(--color-text-muted);">
-      Ini placeholder. Nanti kita isi dengan section Contact.
-    </p>
   </section>
 </BaseLayout>

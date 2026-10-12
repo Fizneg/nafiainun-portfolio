@@ -1,0 +1,313 @@
+---
+/**
+ * About — Section "Tentang Saya"
+ * 2 kolom: narasi (kiri) + fakta card (kanan)
+ */
+
+import { t, defaultLang } from '../i18n/ui';
+
+interface Props {
+  lang?: 'id' | 'en' | 'ar';
+}
+
+const { lang = defaultLang } = Astro.props;
+
+// Fakta singkat
+const facts = [
+  { icon: '📍', value: t(lang, 'about.facts.location') },
+  { icon: '🎯', label: t(lang, 'about.facts.focus_label'), value: t(lang, 'about.facts.focus') },
+  { icon: '💬', label: t(lang, 'about.facts.languages_label'), value: t(lang, 'about.facts.languages') },
+  { icon: '📚', label: t(lang, 'about.facts.learning_label'), value: t(lang, 'about.facts.learning') },
+];
+---
+
+<section class="about" id="about">
+  <!-- Background dot pattern -->
+  <div class="about__pattern" aria-hidden="true"></div>
+
+  <div class="about__inner container">
+
+    <!-- Heading -->
+    <header class="about__header" data-reveal>
+      <span class="section-label">{t(lang, 'about.label')}</span>
+      <h2 class="about__heading">{t(lang, 'about.heading')}</h2>
+    </header>
+
+    <!-- Grid: narasi + fakta -->
+    <div class="about__grid">
+
+      <!-- Kiri: Narasi -->
+      <div class="about__narrative" data-reveal>
+        <p>{t(lang, 'about.p1')}</p>
+        <p>{t(lang, 'about.p2')}</p>
+        <p>{t(lang, 'about.p3')}</p>
+
+        <blockquote class="about__quote">
+          {t(lang, 'about.quote')}
+        </blockquote>
+      </div>
+
+      <!-- Kanan: Fakta Card -->
+      <aside class="about__facts" data-reveal>
+        <ul class="about__facts-list">
+          {facts.map((fact) => (
+            <li class="about__fact">
+              <span class="about__fact-icon" aria-hidden="true">{fact.icon}</span>
+              <div class="about__fact-content">
+                {fact.label && (
+                  <span class="about__fact-label">{fact.label}</span>
+                )}
+                <span class="about__fact-value">{fact.value}</span>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </aside>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  /* ============================================================
+     ABOUT — Styles
+     ============================================================ */
+
+  .about {
+    position: relative;
+    padding-block: var(--space-20);
+    overflow: hidden;
+  }
+
+  @media (min-width: 768px) {
+    .about { padding-block: var(--space-24); }
+  }
+
+  @media (min-width: 1024px) {
+    .about { padding-block: var(--space-32); }
+  }
+
+  /* ---------- Dot Pattern Background ---------- */
+  .about__pattern {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.4;
+    background-image: radial-gradient(
+      circle,
+      var(--color-border-strong) 1px,
+      transparent 1px
+    );
+    background-size: 24px 24px;
+    mask-image: radial-gradient(
+      ellipse 80% 60% at 50% 50%,
+      #000 30%,
+      transparent 100%
+    );
+    -webkit-mask-image: radial-gradient(
+      ellipse 80% 60% at 50% 50%,
+      #000 30%,
+      transparent 100%
+    );
+  }
+
+  /* ---------- Inner ---------- */
+  .about__inner {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ---------- Header ---------- */
+  .about__header {
+    margin-bottom: var(--space-12);
+    max-width: 40ch;
+  }
+
+  .about__heading {
+    font-family: var(--font-heading);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-semibold);
+    line-height: var(--leading-tight);
+    letter-spacing: -0.01em;
+    color: var(--color-text);
+    margin: 0;
+  }
+
+  /* ---------- Grid Layout ---------- */
+  .about__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-12);
+  }
+
+  @media (min-width: 900px) {
+    .about__grid {
+      grid-template-columns: 1.6fr 1fr;
+      gap: var(--space-16);
+      align-items: start;
+    }
+  }
+
+  /* ---------- Narrative ---------- */
+  .about__narrative p {
+    font-size: var(--text-body-lg);
+    line-height: var(--leading-relaxed);
+    color: var(--color-text);
+    margin: 0 0 var(--space-6) 0;
+    max-width: 60ch;
+  }
+
+  .about__narrative p:last-of-type {
+    margin-bottom: var(--space-8);
+  }
+
+  /* Quote */
+  .about__quote {
+    position: relative;
+    padding: var(--space-2) 0 var(--space-2) var(--space-6);
+    border-left: 3px solid var(--color-primary);
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: var(--text-body-lg);
+    font-style: italic;
+    line-height: var(--leading-relaxed);
+    color: var(--color-text-muted);
+    max-width: 55ch;
+  }
+
+  /* ---------- Facts Card ---------- */
+  .about__facts {
+    position: relative;
+  }
+
+  .about__facts-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    list-style: none;
+    margin: 0;
+    padding: var(--space-6);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-sm);
+  }
+
+  @media (min-width: 900px) {
+    .about__facts-list {
+      position: sticky;
+      top: 6rem;
+      padding: var(--space-8);
+    }
+  }
+
+  .about__fact {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-4);
+  }
+
+  .about__fact + .about__fact {
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .about__fact-icon {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: var(--color-surface-alt);
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    line-height: 1;
+  }
+
+  .about__fact-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding-top: 2px;
+  }
+
+  .about__fact-label {
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+
+  .about__fact-value {
+    font-size: var(--text-body);
+    font-weight: var(--weight-medium);
+    color: var(--color-text);
+    line-height: var(--leading-snug);
+  }
+
+  /* ---------- Reveal Animation ---------- */
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 700ms ease-out, transform 700ms ease-out;
+  }
+
+  [data-reveal].is-revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-reveal] {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
+  /* ---------- RTL Support ---------- */
+  :global([dir="rtl"]) .about__quote {
+    padding-left: 0;
+    padding-right: var(--space-6);
+    border-left: none;
+    border-right: 3px solid var(--color-primary);
+  }
+
+  :global([dir="rtl"]) .about__header,
+  :global([dir="rtl"]) .about__narrative {
+    text-align: right;
+  }
+</style>
+
+<script>
+  // ============================================================
+  // REVEAL ON SCROLL — IntersectionObserver
+  // ============================================================
+
+  const revealElements = document.querySelectorAll('[data-reveal]');
+
+  if (revealElements.length > 0 && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-revealed');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.15,
+        rootMargin: '0px 0px -80px 0px',
+      }
+    );
+
+    revealElements.forEach((el) => observer.observe(el));
+  } else {
+    // Fallback: langsung tampil kalau tidak support
+    revealElements.forEach((el) => el.classList.add('is-revealed'));
+  }
+</script>
