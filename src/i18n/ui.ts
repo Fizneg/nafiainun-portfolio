@@ -80,6 +80,22 @@ export const ui = {
     'skills.lang.indonesia': 'Indonesia — Native',
     'skills.lang.arabic': 'Arab — Advanced',
     'skills.lang.english': 'Inggris — Working',
+
+    // Contact
+    'contact.label': 'Kontak',
+    'contact.heading': 'Punya ide? Mari bicara.',
+    'contact.subheading': 'Saya terbuka untuk peluang penuh waktu, freelance, maupun kolaborasi.',
+    'contact.email': 'Email',
+    'contact.linkedin': 'LinkedIn',
+    'contact.github': 'GitHub',
+    'contact.instagram': 'Instagram',
+    'contact.send': 'Kirim Pesan',
+
+    // Footer
+    'footer.tagline': 'Komunikator lintas bahasa dan sistem.',
+    'footer.built': 'Dirancang & dibangun dengan teliti.',
+    'footer.back_top': 'Kembali ke atas',
+    'footer.rights': 'Hak cipta dilindungi.',
   },
   en: {
     // Navigation
@@ -150,6 +166,22 @@ export const ui = {
     'skills.lang.indonesia': 'Indonesian — Native',
     'skills.lang.arabic': 'Arabic — Advanced',
     'skills.lang.english': 'English — Working',
+
+    // Contact
+    'contact.label': 'Contact',
+    'contact.heading': 'Got an idea? Let\'s talk.',
+    'contact.subheading': 'I\'m open to full-time roles, freelance projects, and collaborations.',
+    'contact.email': 'Email',
+    'contact.linkedin': 'LinkedIn',
+    'contact.github': 'GitHub',
+    'contact.instagram': 'Instagram',
+    'contact.send': 'Send a Message',
+
+    // Footer
+    'footer.tagline': 'Communicator across languages and systems.',
+    'footer.built': 'Designed & built with care.',
+    'footer.back_top': 'Back to top',
+    'footer.rights': 'All rights reserved.',
   },
   ar: {
     // التنقل
@@ -220,6 +252,22 @@ export const ui = {
     'skills.lang.indonesia': 'الإندونيسية — لغة أم',
     'skills.lang.arabic': 'العربية — متقدم',
     'skills.lang.english': 'الإنجليزية — عملي',
+
+    // تواصل
+    'contact.label': 'تواصل',
+    'contact.heading': 'لديك فكرة؟ لنتحدث.',
+    'contact.subheading': 'أنا منفتح على الفرص بدوام كامل، والعمل الحر، والتعاون.',
+    'contact.email': 'البريد',
+    'contact.linkedin': 'لينكد إن',
+    'contact.github': 'جيت هب',
+    'contact.instagram': 'إنستغرام',
+    'contact.send': 'أرسل رسالة',
+
+    // التذييل
+    'footer.tagline': 'متواصل عبر اللغات والأنظمة.',
+    'footer.built': 'صُمم وبُني بعناية.',
+    'footer.back_top': 'العودة إلى الأعلى',
+    'footer.rights': 'جميع الحقوق محفوظة.',
   },
 } as const;
 

@@ -6,6 +6,7 @@ import Experience from '../components/Experience.astro';
 import Projects from '../components/Projects.astro';
 import Certifications from '../components/Certifications.astro';
 import Skills from '../components/Skills.astro';
+import Contact from '../components/Contact.astro';
 import '../styles/global.css';
 
 const lang = 'id';
@@ -22,10 +23,5 @@ const lang = 'id';
   <Projects lang={lang} />
   <Certifications lang={lang} />
   <Skills lang={lang} />
-
-  <!-- Placeholder: akan kita isi nanti -->
-  <section id="contact" class="section container" style="padding-block: var(--space-24);">
-    <span class="section-label">Kontak</span>
-    <h2>Bagian kontak akan muncul di sini.</h2>
-  </section>
+  <Contact lang={lang} />
 </BaseLayout>
