@@ -14,11 +14,12 @@ interface Props {
 const {
   title = "Nafi Ainun Na'im — Public Relations Graduate & Web Builder",
   description = "Portfolio Nafi Ainun Na'im. Lulusan Ilmu Komunikasi dengan pengalaman document control, kini freelance Arabic tutor, tour guide, dan translator. Jelajahi pengalaman, proyek, dan cara menghubungi saya.",
-  image = "/og-image.png",
+  image = "/og-image.jpg",
   lang = "id",
 } = Astro.props;
 
-const siteUrl = "https://nafiainun.dev";
+// TODO: Ganti ke "https://nafiainun.dev" setelah domain dibeli
+const siteUrl = "https://portfolio.nafiainun.workers.dev";
 const canonicalURL = new URL(Astro.url.pathname, siteUrl);
 const ogImage = new URL(image, siteUrl);
 
