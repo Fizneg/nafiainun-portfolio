@@ -23,6 +23,7 @@ const canonicalURL = new URL(Astro.url.pathname, siteUrl);
 const ogImage = new URL(image, siteUrl);
 
 // Tentukan arah teks (RTL untuk Arab)
+import Navbar from '../components/Navbar.astro';
 const dir = lang === 'ar' ? 'rtl' : 'ltr';
 
 // Structured Data — Person schema
@@ -104,6 +105,7 @@ const personSchema = {
     <link rel="alternate" hreflang="x-default" href={`${siteUrl}/en/`} />
   </head>
   <body>
+    <Navbar lang={lang} />
     <slot />
   </body>
 </html>

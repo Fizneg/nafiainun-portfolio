@@ -1,0 +1,435 @@
+---
+/**
+ * Navbar — Bilah navigasi utama
+ * Fitur: scroll behavior, language switcher, mobile menu
+ */
+
+import { t, defaultLang } from '../i18n/ui';
+
+interface Props {
+  lang?: 'id' | 'en' | 'ar';
+}
+
+const { lang = defaultLang } = Astro.props;
+
+// Link navigasi (semua anchor ke section di halaman yang sama)
+const navLinks = [
+  { key: 'nav.about', href: '#about' },
+  { key: 'nav.experience', href: '#experience' },
+  { key: 'nav.projects', href: '#projects' },
+  { key: 'nav.contact', href: '#contact' },
+] as const;
+
+// Bahasa yang tersedia
+const languages = [
+  { code: 'id', label: 'ID' },
+  { code: 'en', label: 'EN' },
+  { code: 'ar', label: 'AR' },
+] as const;
+
+// Bahasa lain (untuk switch)
+const otherLangs = languages.filter((l) => l.code !== lang);
+---
+
+<header class="navbar" id="navbar">
+  <div class="navbar__inner container">
+
+    <!-- Logo / Wordmark -->
+    <a href="/" class="navbar__logo" aria-label="Nafi Ainun Na'im — Beranda">
+      <span class="navbar__logo-mark">N</span>
+      <span class="navbar__logo-text">Nafi</span>
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="navbar__nav" aria-label="Navigasi utama">
+      <ul class="navbar__list">
+        {navLinks.map((link) => (
+          <li>
+            <a href={link.href} class="navbar__link">
+              {t(lang, link.key)}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <!-- Right Side: Language Switcher -->
+    <div class="navbar__actions">
+
+      <!-- Language Switcher (Desktop) -->
+      <div class="lang-switcher" role="group" aria-label={t(lang, 'nav.language')}>
+        {languages.map((l) => (
+          <a
+            href={`/${l.code}/`}
+            class:list={['lang-switcher__btn', { 'is-active': l.code === lang }]}
+            aria-current={l.code === lang ? 'true' : undefined}
+          >
+            {l.label}
+          </a>
+        ))}
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button
+        type="button"
+        class="navbar__toggle"
+        id="navbar-toggle"
+        aria-label={t(lang, 'nav.menu')}
+        aria-expanded="false"
+        aria-controls="navbar-mobile"
+      >
+        <span class="navbar__toggle-bar"></span>
+        <span class="navbar__toggle-bar"></span>
+        <span class="navbar__toggle-bar"></span>
+      </button>
+
+    </div>
+  </div>
+
+  <!-- Mobile Menu (hidden by default) -->
+  <div class="navbar__mobile" id="navbar-mobile" hidden>
+    <nav aria-label="Navigasi mobile">
+      <ul class="navbar__mobile-list">
+        {navLinks.map((link) => (
+          <li>
+            <a href={link.href} class="navbar__mobile-link">
+              {t(lang, link.key)}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+    <div class="lang-switcher lang-switcher--mobile">
+      {languages.map((l) => (
+        <a
+          href={`/${l.code}/`}
+          class:list={['lang-switcher__btn', { 'is-active': l.code === lang }]}
+        >
+          {l.label}
+        </a>
+      ))}
+    </div>
+  </div>
+</header>
+
+<style>
+  /* ============================================================
+     NAVBAR — Styles
+     ============================================================ */
+
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 200;
+    transition: all var(--transition-base);
+    padding-block: var(--space-5);
+  }
+
+  .navbar__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-6);
+  }
+
+  /* ---------- Logo ---------- */
+  .navbar__logo {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-family: var(--font-heading);
+    font-weight: var(--weight-semibold);
+    font-size: var(--text-h4);
+    color: var(--color-text);
+    text-decoration: none;
+    transition: opacity var(--transition-fast);
+  }
+
+  .navbar__logo:hover {
+    opacity: 0.8;
+    color: var(--color-text);
+  }
+
+  .navbar__logo-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: var(--color-primary);
+    color: #FFF;
+    border-radius: var(--radius-md);
+    font-size: 1.125rem;
+    font-weight: var(--weight-bold);
+    line-height: 1;
+  }
+
+  .navbar__logo-text {
+    letter-spacing: -0.01em;
+  }
+
+  /* ---------- Desktop Navigation ---------- */
+  .navbar__nav {
+    display: none;
+  }
+
+  .navbar__list {
+    display: flex;
+    align-items: center;
+    gap: var(--space-8);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .navbar__link {
+    position: relative;
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    color: var(--color-text-muted);
+    text-decoration: none;
+    padding-block: var(--space-2);
+    transition: color var(--transition-fast);
+  }
+
+  .navbar__link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background: var(--color-primary);
+    transition: width var(--transition-base);
+  }
+
+  .navbar__link:hover {
+    color: var(--color-text);
+  }
+
+  .navbar__link:hover::after {
+    width: 100%;
+  }
+
+  /* ---------- Right Side Actions ---------- */
+  .navbar__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  /* ---------- Language Switcher ---------- */
+  .lang-switcher {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    padding: 3px;
+    background: var(--color-surface-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+  }
+
+  .lang-switcher__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 10px;
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.03em;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    border-radius: var(--radius-full);
+    transition: all var(--transition-fast);
+    line-height: 1;
+  }
+
+  .lang-switcher__btn:hover {
+    color: var(--color-text);
+  }
+
+  .lang-switcher__btn.is-active {
+    background: var(--color-surface);
+    color: var(--color-text);
+    box-shadow: var(--shadow-xs);
+  }
+
+  /* ---------- Mobile Toggle (Hamburger) ---------- */
+  .navbar__toggle {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    background: transparent;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+
+  .navbar__toggle:hover {
+    border-color: var(--color-border-strong);
+  }
+
+  .navbar__toggle-bar {
+    display: block;
+    width: 16px;
+    height: 1.5px;
+    background: var(--color-text);
+    border-radius: 1px;
+    transition: all var(--transition-base);
+  }
+
+  /* Toggle jadi X saat terbuka */
+  .navbar__toggle[aria-expanded="true"] .navbar__toggle-bar:nth-child(1) {
+    transform: translateY(5.5px) rotate(45deg);
+  }
+  .navbar__toggle[aria-expanded="true"] .navbar__toggle-bar:nth-child(2) {
+    opacity: 0;
+  }
+  .navbar__toggle[aria-expanded="true"] .navbar__toggle-bar:nth-child(3) {
+    transform: translateY(-5.5px) rotate(-45deg);
+  }
+
+  /* ---------- Mobile Menu ---------- */
+  .navbar__mobile {
+    background: var(--color-surface);
+    border-top: 1px solid var(--color-border);
+    margin-top: var(--space-5);
+    padding: var(--space-6) var(--container-padding);
+  }
+
+  .navbar__mobile[hidden] {
+    display: none;
+  }
+
+  .navbar__mobile-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    list-style: none;
+    margin: 0 0 var(--space-6) 0;
+    padding: 0;
+  }
+
+  .navbar__mobile-link {
+    display: block;
+    padding: var(--space-3) 0;
+    font-size: var(--text-body-lg);
+    font-weight: var(--weight-medium);
+    color: var(--color-text);
+    text-decoration: none;
+    border-bottom: 1px solid var(--color-border);
+    transition: color var(--transition-fast);
+  }
+
+  .navbar__mobile-link:hover {
+    color: var(--color-primary);
+  }
+
+  .lang-switcher--mobile {
+    display: inline-flex;
+  }
+
+  /* ---------- Responsive: Desktop (>= 768px) ---------- */
+  @media (min-width: 768px) {
+    .navbar__nav {
+      display: block;
+    }
+
+    .navbar__toggle {
+      display: none;
+    }
+
+    .navbar__mobile {
+      display: none !important;
+    }
+  }
+
+  /* ---------- Scrolled State (via JS toggle class) ---------- */
+  :global(.navbar.is-scrolled) {
+    background: rgba(253, 252, 247, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--color-border);
+    padding-block: var(--space-3);
+  }
+
+  /* ---------- RTL Support ---------- */
+  :global([dir="rtl"]) .navbar__logo-mark {
+    font-family: var(--font-arabic);
+  }
+</style>
+
+<script>
+  // ============================================================
+  // NAVBAR — Interaksi
+  // ============================================================
+
+  const navbar = document.getElementById('navbar');
+  const toggle = document.getElementById('navbar-toggle');
+  const mobileMenu = document.getElementById('navbar-mobile');
+
+  // ---------- 1. Scroll Behavior ----------
+  function handleScroll() {
+    if (!navbar) return;
+    if (window.scrollY > 100) {
+      navbar.classList.add('is-scrolled');
+    } else {
+      navbar.classList.remove('is-scrolled');
+    }
+  }
+
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  handleScroll(); // jalankan sekali saat load
+
+  // ---------- 2. Mobile Menu Toggle ----------
+  function closeMobileMenu() {
+    if (!toggle || !mobileMenu) return;
+    toggle.setAttribute('aria-expanded', 'false');
+    mobileMenu.hidden = true;
+  }
+
+  function openMobileMenu() {
+    if (!toggle || !mobileMenu) return;
+    toggle.setAttribute('aria-expanded', 'true');
+    mobileMenu.hidden = false;
+  }
+
+  toggle?.addEventListener('click', () => {
+    const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+    if (isOpen) {
+      closeMobileMenu();
+    } else {
+      openMobileMenu();
+    }
+  });
+
+  // Tutup menu saat klik link
+  document.querySelectorAll('.navbar__mobile-link').forEach((link) => {
+    link.addEventListener('click', closeMobileMenu);
+  });
+
+  // ---------- 3. Smooth Scroll dengan Offset ----------
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener('click', (e) => {
+      const href = anchor.getAttribute('href');
+      if (!href || href === '#') return;
+
+      const target = document.querySelector(href);
+      if (!target) return;
+
+      e.preventDefault();
+      target.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    });
+  });
+</script>
