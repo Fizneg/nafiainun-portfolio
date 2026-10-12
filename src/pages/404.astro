@@ -1,0 +1,121 @@
+---
+/**
+ * Halaman 404 — Not Found
+ * Muncul otomatis kalau user akses URL yang tidak ada
+ */
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/global.css';
+---
+
+<BaseLayout
+  title="404 — Halaman Tidak Ditemukan"
+  description="Halaman yang kamu cari tidak ditemukan."
+  lang="id"
+>
+  <main class="notfound">
+    <div class="notfound__inner container">
+
+      <span class="notfound__code" aria-hidden="true">404</span>
+
+      <h1 class="notfound__title">Halaman tidak ditemukan.</h1>
+
+      <p class="notfound__desc">
+        Sepertinya kamu salah masuk pintu. Halaman yang kamu cari mungkin sudah dipindahkan atau tidak pernah ada.
+      </p>
+
+      <div class="notfound__actions">
+        <a href="/id/" class="btn btn--primary">
+          Kembali ke Beranda
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .notfound {
+    min-height: 70dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-block: var(--space-20);
+  }
+
+  .notfound__inner {
+    text-align: center;
+    max-width: 56ch;
+  }
+
+  .notfound__code {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-size: clamp(6rem, 18vw, 12rem);
+    font-weight: var(--weight-bold);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: var(--space-6);
+  }
+
+  .notfound__title {
+    font-family: var(--font-heading);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-semibold);
+    line-height: var(--leading-tight);
+    color: var(--color-text);
+    margin: 0 0 var(--space-4) 0;
+  }
+
+  .notfound__desc {
+    font-size: var(--text-body-lg);
+    line-height: var(--leading-relaxed);
+    color: var(--color-text-muted);
+    margin: 0 0 var(--space-8) 0;
+  }
+
+  .notfound__actions {
+    display: flex;
+    justify-content: center;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-4) var(--space-6);
+    font-size: var(--text-body);
+    font-weight: var(--weight-semibold);
+    text-decoration: none;
+    border-radius: var(--radius-lg);
+    transition: all var(--transition-base);
+  }
+
+  .btn--primary {
+    background: var(--color-primary);
+    color: #FFFFFF;
+  }
+
+  .btn--primary:hover {
+    background: var(--color-primary-hover);
+    color: #FFFFFF;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-primary);
+  }
+
+  .btn--primary:hover svg {
+    transform: translateX(4px);
+  }
+
+  .btn svg {
+    transition: transform var(--transition-base);
+  }
+</style>
