@@ -1,0 +1,143 @@
+/* ============================================================
+   DESIGN TOKENS — Citrus Pop
+   Portfolio Nafi Ainun Na'im
+   ============================================================ */
+
+:root {
+  /* ---------- WARNA: Background & Surface ---------- */
+  --color-bg:              #FDFCF7;
+  --color-surface:         #FFFFFF;
+  --color-surface-alt:     #F7F5EE;
+
+  /* ---------- WARNA: Text ---------- */
+  --color-text:            #0F1419;
+  --color-text-muted:      #5A6472;
+  --color-text-subtle:     #9CA3AF;
+
+  /* ---------- WARNA: Border ---------- */
+  --color-border:          #E8E5DC;
+  --color-border-strong:   #D4D0C4;
+
+  /* ---------- WARNA: Brand ---------- */
+  --color-primary:         #FF6B35;
+  --color-primary-hover:   #E85A28;
+  --color-primary-soft:    #FFE8DF;
+
+  --color-accent:          #4ECDC4;
+  --color-accent-hover:    #3DB8B0;
+  --color-accent-soft:     #DDF7F5;
+
+  --color-highlight:       #FFE66D;
+  --color-highlight-soft:  #FFF9DB;
+
+  /* ---------- WARNA: Fungsional ---------- */
+  --color-success:         #10B981;
+  --color-warning:         #F59E0B;
+  --color-error:           #EF4444;
+
+  /* ---------- TIPOGRAFI: Font Family ---------- */
+  --font-heading:  "Bricolage Grotesque", system-ui, -apple-system, sans-serif;
+  --font-body:     "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --font-arabic:   "IBM Plex Sans Arabic", system-ui, sans-serif;
+  --font-mono:     "JetBrains Mono", ui-monospace, monospace;
+
+  /* ---------- TIPOGRAFI: Ukuran ---------- */
+  --text-display:   4.5rem;
+  --text-h1:        3.5rem;
+  --text-h2:        2.5rem;
+  --text-h3:        1.75rem;
+  --text-h4:        1.25rem;
+  --text-body-lg:   1.125rem;
+  --text-body:      1rem;
+  --text-sm:        0.875rem;
+  --text-xs:        0.75rem;
+
+  /* ---------- TIPOGRAFI: Line Height ---------- */
+  --leading-tight:   1.1;
+  --leading-snug:    1.3;
+  --leading-normal:  1.5;
+  --leading-relaxed: 1.65;
+
+  /* ---------- TIPOGRAFI: Weight ---------- */
+  --weight-normal:   400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+  --weight-bold:     700;
+
+  /* ---------- SPACING ---------- */
+  --space-1:   0.25rem;
+  --space-2:   0.5rem;
+  --space-3:   0.75rem;
+  --space-4:   1rem;
+  --space-5:   1.25rem;
+  --space-6:   1.5rem;
+  --space-8:   2rem;
+  --space-10:  2.5rem;
+  --space-12:  3rem;
+  --space-16:  4rem;
+  --space-20:  5rem;
+  --space-24:  6rem;
+  --space-32:  8rem;
+
+  /* ---------- RADIUS ---------- */
+  --radius-sm:   0.5rem;
+  --radius-md:   0.75rem;
+  --radius-lg:   1rem;
+  --radius-xl:   1.5rem;
+  --radius-2xl:  2rem;
+  --radius-full: 9999px;
+
+  /* ---------- SHADOW ---------- */
+  --shadow-xs:      0 1px 2px rgba(15, 20, 25, 0.04);
+  --shadow-sm:      0 2px 4px rgba(15, 20, 25, 0.06);
+  --shadow-md:      0 4px 12px rgba(15, 20, 25, 0.08);
+  --shadow-lg:      0 12px 24px rgba(15, 20, 25, 0.10);
+  --shadow-xl:      0 24px 48px rgba(15, 20, 25, 0.12);
+  --shadow-primary: 0 8px 24px rgba(255, 107, 53, 0.25);
+
+  /* ---------- LAYOUT ---------- */
+  --container-max:     75rem;
+  --container-padding: 1.5rem;
+
+  /* ---------- TRANSITION ---------- */
+  --transition-fast: 150ms ease-out;
+  --transition-base: 250ms ease-out;
+  --transition-slow: 400ms ease-out;
+}
+
+/* Tablet: 640px – 1023px */
+@media (max-width: 1023px) {
+  :root {
+    --text-display: 3.5rem;
+    --text-h1:      2.75rem;
+    --text-h2:      2.25rem;
+    --text-h3:      1.5rem;
+  }
+}
+
+/* Mobile: < 640px */
+@media (max-width: 639px) {
+  :root {
+    --text-display: 2.5rem;
+    --text-h1:      2rem;
+    --text-h2:      1.75rem;
+    --text-h3:      1.375rem;
+    --text-h4:      1.125rem;
+    --container-padding: 1.25rem;
+  }
+}
+
+/* RTL — Bahasa Arab */
+[dir="rtl"] {
+  --font-heading: "IBM Plex Sans Arabic", system-ui, sans-serif;
+  --font-body:    "IBM Plex Sans Arabic", system-ui, sans-serif;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --transition-fast: 0ms;
+    --transition-base: 0ms;
+    --transition-slow: 0ms;
+  }
+}
