@@ -9,7 +9,7 @@ interface Props {
   lang?: 'id' | 'en' | 'ar';
 }
 
-const { lang = defaultLang } = Astro.props;
+const { lang = defaultLang } = Astro.props as Props;
 const currentYear = new Date().getFullYear();
 
 // Link navigasi cepat
@@ -39,7 +39,7 @@ const navLinks = [
           {navLinks.map((link) => (
             <li>
               <a href={link.href} class="footer__nav-link">
-                {t(lang, link.key)}
+                {t(lang, link.key as keyof typeof import('../i18n/ui').ui.id)}
               </a>
             </li>
           ))}
