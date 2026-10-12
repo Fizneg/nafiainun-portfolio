@@ -64,6 +64,22 @@ export const ui = {
     'projects.featured_label': 'Proyek Utama',
     'projects.view_case': 'Studi Kasus',
     'projects.other_title': 'Proyek Lainnya',
+
+    // Certifications
+    'cert.label': 'Pelatihan & Sertifikasi',
+    'cert.heading': 'Yang saya pelajari di luar ruang kelas.',
+    'cert.view': 'Lihat sertifikat',
+
+    // Skills
+    'skills.label': 'Keahlian',
+    'skills.heading': 'Alat, bahasa, dan kebiasaan yang saya bawa ke meja kerja.',
+    'skills.group.technical': 'Teknis',
+    'skills.group.languages': 'Bahasa',
+    'skills.group.soft': 'Soft Skills',
+    'skills.group.tools': 'Tools',
+    'skills.lang.indonesia': 'Indonesia — Native',
+    'skills.lang.arabic': 'Arab — Advanced',
+    'skills.lang.english': 'Inggris — Working',
   },
   en: {
     // Navigation
@@ -118,6 +134,22 @@ export const ui = {
     'projects.featured_label': 'Featured Project',
     'projects.view_case': 'View Case Study',
     'projects.other_title': 'Other Projects',
+
+    // Certifications
+    'cert.label': 'Training & Certifications',
+    'cert.heading': 'What I learned outside the classroom.',
+    'cert.view': 'View certificate',
+
+    // Skills
+    'skills.label': 'Skills',
+    'skills.heading': 'The tools, languages, and habits I bring to the table.',
+    'skills.group.technical': 'Technical',
+    'skills.group.languages': 'Languages',
+    'skills.group.soft': 'Soft Skills',
+    'skills.group.tools': 'Tools',
+    'skills.lang.indonesia': 'Indonesian — Native',
+    'skills.lang.arabic': 'Arabic — Advanced',
+    'skills.lang.english': 'English — Working',
   },
   ar: {
     // التنقل
@@ -172,6 +204,22 @@ export const ui = {
     'projects.featured_label': 'المشروع الرئيسي',
     'projects.view_case': 'دراسة الحالة',
     'projects.other_title': 'مشاريع أخرى',
+
+    // الشهادات
+    'cert.label': 'التدريب والشهادات',
+    'cert.heading': 'ما تعلمته خارج الفصول الدراسية.',
+    'cert.view': 'عرض الشهادة',
+
+    // المهارات
+    'skills.label': 'المهارات',
+    'skills.heading': 'الأدوات واللغات والعادات التي أجلبها إلى طاولة العمل.',
+    'skills.group.technical': 'تقني',
+    'skills.group.languages': 'اللغات',
+    'skills.group.soft': 'المهارات الشخصية',
+    'skills.group.tools': 'الأدوات',
+    'skills.lang.indonesia': 'الإندونيسية — لغة أم',
+    'skills.lang.arabic': 'العربية — متقدم',
+    'skills.lang.english': 'الإنجليزية — عملي',
   },
 } as const;
 

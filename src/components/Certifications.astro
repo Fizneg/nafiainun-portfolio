@@ -1,0 +1,187 @@
+---
+/**
+ * Certifications — Pelatihan & Sertifikasi
+ * List ringkas dengan tahun, judul, penyelenggara
+ */
+
+import { t, defaultLang } from '../i18n/ui';
+import { certifications } from '../data/certifications';
+
+interface Props {
+  lang?: 'id' | 'en' | 'ar';
+}
+
+const { lang = defaultLang } = Astro.props;
+---
+
+<section class="cert section" id="certifications">
+  <div class="container">
+
+    <header class="cert__header" data-reveal>
+      <span class="section-label">{t(lang, 'cert.label')}</span>
+      <h2 class="cert__heading">{t(lang, 'cert.heading')}</h2>
+    </header>
+
+    <ul class="cert__list" data-reveal>
+      {certifications.map((cert) => (
+        <li class="cert__item">
+          <span class="cert__year">{cert.year}</span>
+          <div class="cert__content">
+            <h3 class="cert__title">{cert.title}</h3>
+            <p class="cert__issuer">{cert.issuer}</p>
+          </div>
+          {cert.hasCertificate && (
+            <button type="button" class="cert__btn" aria-label={`${t(lang, 'cert.view')}: ${cert.title}`}>
+              📎
+            </button>
+          )}
+        </li>
+      ))}
+    </ul>
+
+  </div>
+</section>
+
+<style>
+  .cert__header {
+    margin-bottom: var(--space-12);
+    max-width: 45ch;
+  }
+
+  .cert__heading {
+    font-family: var(--font-heading);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-semibold);
+    line-height: var(--leading-tight);
+    letter-spacing: -0.01em;
+    color: var(--color-text);
+    margin: 0;
+  }
+
+  .cert__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .cert__item {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: var(--space-5);
+    align-items: center;
+    padding: var(--space-5) var(--space-6);
+    transition: background var(--transition-fast);
+  }
+
+  .cert__item + .cert__item {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .cert__item:hover {
+    background: var(--color-surface-alt);
+  }
+
+  .cert__year {
+    font-family: var(--font-heading);
+    font-size: var(--text-body-lg);
+    font-weight: var(--weight-semibold);
+    color: var(--color-primary);
+    flex-shrink: 0;
+    min-width: 3.5rem;
+  }
+
+  .cert__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    min-width: 0;
+  }
+
+  .cert__title {
+    font-family: var(--font-body);
+    font-size: var(--text-body);
+    font-weight: var(--weight-semibold);
+    line-height: var(--leading-snug);
+    color: var(--color-text);
+    margin: 0;
+  }
+
+  .cert__issuer {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  .cert__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: var(--color-surface-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+
+  .cert__btn:hover {
+    background: var(--color-primary-soft);
+    border-color: var(--color-primary);
+    transform: scale(1.05);
+  }
+
+  @media (max-width: 639px) {
+    .cert__item {
+      padding: var(--space-4);
+      gap: var(--space-3);
+    }
+
+    .cert__year {
+      font-size: var(--text-body);
+      min-width: 3rem;
+    }
+  }
+
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 700ms ease-out, transform 700ms ease-out;
+  }
+
+  [data-reveal].is-revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-reveal] { opacity: 1; transform: none; transition: none; }
+  }
+</style>
+
+<script>
+  const revealElements = document.querySelectorAll('#certifications [data-reveal]');
+
+  if (revealElements.length > 0 && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-revealed');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -60px 0px' }
+    );
+    revealElements.forEach((el) => observer.observe(el));
+  } else {
+    revealElements.forEach((el) => el.classList.add('is-revealed'));
+  }
+</script>
