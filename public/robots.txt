@@ -1,0 +1,10 @@
+# ============================================================
+# robots.txt — Nafi Ainun Na'im Portfolio
+# ============================================================
+
+# Izinkan semua mesin pencari crawl semua halaman
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://portfolio.nafiainun.workers.dev/sitemap-index.xml
