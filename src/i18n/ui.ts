@@ -57,6 +57,13 @@ export const ui = {
     'exp.type.fulltime': 'Full-time',
     'exp.type.internship': 'Magang',
     'exp.type.parttime': 'Part-time',
+
+    // Projects
+    'projects.label': 'Proyek',
+    'projects.heading': 'Hal yang saya bangun — dari masalah nyata, dengan arahan yang jelas.',
+    'projects.featured_label': 'Proyek Utama',
+    'projects.view_case': 'Studi Kasus',
+    'projects.other_title': 'Proyek Lainnya',
   },
   en: {
     // Navigation
@@ -104,6 +111,13 @@ export const ui = {
     'exp.type.fulltime': 'Full-time',
     'exp.type.internship': 'Internship',
     'exp.type.parttime': 'Part-time',
+
+    // Projects
+    'projects.label': 'Projects',
+    'projects.heading': 'Things I build — from real problems, with clear direction.',
+    'projects.featured_label': 'Featured Project',
+    'projects.view_case': 'View Case Study',
+    'projects.other_title': 'Other Projects',
   },
   ar: {
     // التنقل
@@ -151,6 +165,13 @@ export const ui = {
     'exp.type.fulltime': 'دوام كامل',
     'exp.type.internship': 'تدريب',
     'exp.type.parttime': 'دوام جزئي',
+
+    // المشاريع
+    'projects.label': 'المشاريع',
+    'projects.heading': 'ما أبنيه — من مشاكل حقيقية، بتوجيه واضح.',
+    'projects.featured_label': 'المشروع الرئيسي',
+    'projects.view_case': 'دراسة الحالة',
+    'projects.other_title': 'مشاريع أخرى',
   },
 } as const;
 

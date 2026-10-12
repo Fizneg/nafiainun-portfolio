@@ -1,0 +1,500 @@
+---
+/**
+ * Projects — Section proyek
+ * Featured project (besar) + grid untuk proyek lainnya
+ */
+
+import { t, defaultLang } from '../i18n/ui';
+import { featuredProject, otherProjects } from '../data/projects';
+import Tag from './ui/Tag.astro';
+
+interface Props {
+  lang?: 'id' | 'en' | 'ar';
+}
+
+const { lang = defaultLang } = Astro.props;
+
+// Placeholder jika gambar belum ada
+const fallbackImage = false; // ganti ke true kalau sudah ada gambar
+---
+
+<section class="projects section" id="projects">
+  <div class="container">
+
+    <!-- Header -->
+    <header class="projects__header" data-reveal>
+      <span class="section-label">{t(lang, 'projects.label')}</span>
+      <h2 class="projects__heading">{t(lang, 'projects.heading')}</h2>
+    </header>
+
+    <!-- ============================================================
+         FEATURED PROJECT
+         ============================================================ -->
+    {featuredProject && (
+      <article class="project-featured" data-reveal>
+
+        <!-- Thumbnail -->
+        <div class="project-featured__media">
+          {fallbackImage ? (
+            <img
+              src={featuredProject.image}
+              alt={featuredProject.imageAlt || featuredProject.title}
+              loading="lazy"
+              width="1200"
+              height="675"
+            />
+          ) : (
+            <div class="project-featured__placeholder" aria-hidden="true">
+              <div class="project-featured__placeholder-inner">
+                <span class="project-featured__placeholder-icon">💻</span>
+                <span class="project-featured__placeholder-text">
+                  Mockup akan muncul di sini
+                </span>
+              </div>
+            </div>
+          )}
+        </div>
+
+        <!-- Content -->
+        <div class="project-featured__body">
+          <span class="project-featured__label">
+            {t(lang, 'projects.featured_label')}
+          </span>
+
+          <h3 class="project-featured__title">{featuredProject.title}</h3>
+
+          <p class="project-featured__desc">{featuredProject.description}</p>
+
+          <!-- Tech tags -->
+          <div class="project-featured__tech">
+            {featuredProject.tech.map((t) => (
+              <Tag variant="default" size="md">{t}</Tag>
+            ))}
+          </div>
+
+          <!-- Role -->
+          <p class="project-featured__role">
+            <strong>Peran saya:</strong> {featuredProject.role}
+          </p>
+
+          <!-- CTA -->
+          {featuredProject.caseStudyUrl && (
+            <a href={featuredProject.caseStudyUrl} class="project-featured__cta">
+              {t(lang, 'projects.view_case')}
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+          )}
+        </div>
+
+      </article>
+    )}
+
+    <!-- ============================================================
+         OTHER PROJECTS (kalau ada)
+         ============================================================ -->
+    {otherProjects.length > 0 && (
+      <div class="projects__other" data-reveal>
+        <h3 class="projects__other-title">{t(lang, 'projects.other_title')}</h3>
+
+        <div class="projects__grid">
+          {otherProjects.map((p) => (
+            <article class="project-card">
+              <div class="project-card__media">
+                {p.image ? (
+                  <img src={p.image} alt={p.imageAlt || p.title} loading="lazy" />
+                ) : (
+                  <div class="project-card__placeholder" aria-hidden="true">💻</div>
+                )}
+              </div>
+              <div class="project-card__body">
+                <h4 class="project-card__title">{p.title}</h4>
+                <p class="project-card__desc">{p.tagline}</p>
+                <div class="project-card__tech">
+                  {p.tech.slice(0, 4).map((t) => (
+                    <Tag variant="default">{t}</Tag>
+                  ))}
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    )}
+
+  </div>
+</section>
+
+<style>
+  /* ============================================================
+     PROJECTS — Section
+     ============================================================ */
+
+  .projects__header {
+    margin-bottom: var(--space-12);
+    max-width: 55ch;
+  }
+
+  .projects__heading {
+    font-family: var(--font-heading);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-semibold);
+    line-height: var(--leading-tight);
+    letter-spacing: -0.01em;
+    color: var(--color-text);
+    margin: 0;
+  }
+
+  /* ============================================================
+     FEATURED PROJECT
+     ============================================================ */
+
+  .project-featured {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-2xl);
+    overflow: hidden;
+    transition: all var(--transition-base);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .project-featured:hover {
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-primary);
+  }
+
+  /* ---------- Media (gambar / placeholder) ---------- */
+  .project-featured__media {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    background: var(--color-surface-alt);
+    overflow: hidden;
+  }
+
+  .project-featured__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+  }
+
+  .project-featured:hover .project-featured__media img {
+    transform: scale(1.03);
+  }
+
+  /* Placeholder */
+  .project-featured__placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(
+      135deg,
+      var(--color-primary-soft) 0%,
+      var(--color-accent-soft) 100%
+    );
+  }
+
+  .project-featured__placeholder-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-3);
+    color: var(--color-text-muted);
+  }
+
+  .project-featured__placeholder-icon {
+    font-size: 3rem;
+    line-height: 1;
+    opacity: 0.7;
+  }
+
+  .project-featured__placeholder-text {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+  }
+
+  /* ---------- Body (konten) ---------- */
+  .project-featured__body {
+    padding: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .project-featured__label {
+    display: inline-flex;
+    align-items: center;
+    align-self: flex-start;
+    padding: 4px 10px;
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    background: var(--color-primary-soft);
+    border-radius: var(--radius-full);
+  }
+
+  .project-featured__title {
+    font-family: var(--font-heading);
+    font-size: var(--text-h3);
+    font-weight: var(--weight-semibold);
+    line-height: var(--leading-snug);
+    color: var(--color-text);
+    margin: 0;
+  }
+
+  .project-featured__desc {
+    font-size: var(--text-body);
+    line-height: var(--leading-relaxed);
+    color: var(--color-text-muted);
+    margin: 0;
+    max-width: 60ch;
+  }
+
+  .project-featured__tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-top: var(--space-2);
+  }
+
+  .project-featured__role {
+    font-size: var(--text-sm);
+    line-height: var(--leading-relaxed);
+    color: var(--color-text-muted);
+    margin: 0;
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .project-featured__role strong {
+    color: var(--color-text);
+    font-weight: var(--weight-semibold);
+  }
+
+  .project-featured__cta {
+    display: inline-flex;
+    align-items: center;
+    align-self: flex-start;
+    gap: var(--space-2);
+    padding: var(--space-4) var(--space-6);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+    color: #FFFFFF;
+    background: var(--color-primary);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    transition: all var(--transition-base);
+    margin-top: var(--space-2);
+  }
+
+  .project-featured__cta:hover {
+    background: var(--color-primary-hover);
+    color: #FFFFFF;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-primary);
+  }
+
+  .project-featured__cta svg {
+    transition: transform var(--transition-base);
+  }
+
+  .project-featured__cta:hover svg {
+    transform: translateX(4px);
+  }
+
+  /* ============================================================
+     OTHER PROJECTS
+     ============================================================ */
+
+  .projects__other {
+    margin-top: var(--space-16);
+  }
+
+  .projects__other-title {
+    font-family: var(--font-heading);
+    font-size: var(--text-h4);
+    font-weight: var(--weight-semibold);
+    color: var(--color-text);
+    margin: 0 0 var(--space-8) 0;
+    padding-bottom: var(--space-3);
+    border-bottom: 1px dashed var(--color-border-strong);
+  }
+
+  .projects__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  @media (min-width: 768px) {
+    .projects__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .project-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    transition: all var(--transition-base);
+  }
+
+  .project-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--color-primary);
+  }
+
+  .project-card__media {
+    aspect-ratio: 16 / 10;
+    background: var(--color-surface-alt);
+    overflow: hidden;
+  }
+
+  .project-card__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+  }
+
+  .project-card:hover .project-card__media img {
+    transform: scale(1.05);
+  }
+
+  .project-card__placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-size: 2.5rem;
+    opacity: 0.5;
+  }
+
+  .project-card__body {
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    flex: 1;
+  }
+
+  .project-card__title {
+    font-family: var(--font-heading);
+    font-size: var(--text-h4);
+    font-weight: var(--weight-semibold);
+    line-height: var(--leading-snug);
+    color: var(--color-text);
+    margin: 0;
+  }
+
+  .project-card__desc {
+    font-size: var(--text-sm);
+    line-height: var(--leading-relaxed);
+    color: var(--color-text-muted);
+    margin: 0;
+    flex: 1;
+  }
+
+  .project-card__tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-top: var(--space-2);
+  }
+
+  /* ============================================================
+     RESPONSIVE
+     ============================================================ */
+
+  @media (min-width: 900px) {
+    .project-featured {
+      grid-template-columns: 1.1fr 1fr;
+    }
+
+    .project-featured__media {
+      aspect-ratio: auto;
+      height: 100%;
+      min-height: 420px;
+    }
+
+    .project-featured__body {
+      padding: var(--space-10);
+    }
+  }
+
+  @media (max-width: 639px) {
+    .project-featured__body {
+      padding: var(--space-6);
+    }
+  }
+
+  /* ============================================================
+     REVEAL
+     ============================================================ */
+
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 700ms ease-out, transform 700ms ease-out;
+  }
+
+  [data-reveal].is-revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-reveal] {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
+  /* ============================================================
+     RTL
+     ============================================================ */
+
+  :global([dir="rtl"]) .project-featured__label,
+  :global([dir="rtl"]) .project-featured__cta {
+    align-self: flex-end;
+  }
+</style>
+
+<script>
+  const revealElements = document.querySelectorAll('#projects [data-reveal]');
+
+  if (revealElements.length > 0 && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-revealed');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '0px 0px -60px 0px',
+      }
+    );
+
+    revealElements.forEach((el) => observer.observe(el));
+  } else {
+    revealElements.forEach((el) => el.classList.add('is-revealed'));
+  }
+</script>

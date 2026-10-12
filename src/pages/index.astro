@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
 import About from '../components/About.astro';
 import Experience from '../components/Experience.astro';
+import Projects from '../components/Projects.astro';
 import '../styles/global.css';
 
 const lang = 'id';
@@ -16,13 +17,9 @@ const lang = 'id';
   <Hero lang={lang} />
   <About lang={lang} />
   <Experience lang={lang} />
+  <Projects lang={lang} />
 
   <!-- Placeholder: akan kita isi nanti -->
-  <section id="projects" class="section container" style="padding-block: var(--space-24);">
-    <span class="section-label">Proyek</span>
-    <h2>Bagian proyek akan muncul di sini.</h2>
-  </section>
-
   <section id="contact" class="section container" style="padding-block: var(--space-24);">
     <span class="section-label">Kontak</span>
     <h2>Bagian kontak akan muncul di sini.</h2>
