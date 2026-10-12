@@ -1,41 +1,32 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
 import '../styles/global.css';
+
+const lang = 'id';
 ---
 
 <BaseLayout
   title="Nafi Ainun Na'im — Portfolio"
   description="Portfolio Nafi Ainun Na'im. Lulusan Public Relations, Document Control Specialist, kini freelance Arabic tutor, tour guide, dan translator."
-  lang="id"
+  lang={lang}
 >
-  <main class="container" style="padding-block: var(--space-16);">
-    
-    <span class="section-label">Test BaseLayout</span>
-    
-    <h1>
-      Halo, BaseLayout <span style="color: var(--color-primary);">berhasil</span>.
-    </h1>
+  <Hero lang={lang} />
 
-    <p style="margin-top: var(--space-6); max-width: 60ch;">
-      Kalau kamu melihat halaman ini dengan judul di tab browser 
-      <strong>"Nafi Ainun Na'im — Portfolio"</strong>, berarti 
-      BaseLayout sudah bekerja dengan benar.
+  <!-- Placeholder section untuk test anchor link -->
+  <section id="projects" class="section container" style="padding-block: var(--space-24);">
+    <span class="section-label">Proyek</span>
+    <h2>Bagian proyek akan muncul di sini.</h2>
+    <p style="margin-top: var(--space-4); color: var(--color-text-muted);">
+      Ini placeholder. Nanti kita isi dengan section Projects.
     </p>
+  </section>
 
-    <div style="margin-top: var(--space-8);">
-      <a href="#" style="
-        display: inline-flex;
-        align-items: center;
-        gap: var(--space-2);
-        padding: var(--space-4) var(--space-6);
-        background: var(--color-primary);
-        color: #FFF;
-        border-radius: var(--radius-lg);
-        font-weight: var(--weight-semibold);
-      ">
-        Tombol Test
-      </a>
-    </div>
-
-  </main>
+  <section id="contact" class="section container" style="padding-block: var(--space-24);">
+    <span class="section-label">Kontak</span>
+    <h2>Bagian kontak akan muncul di sini.</h2>
+    <p style="margin-top: var(--space-4); color: var(--color-text-muted);">
+      Ini placeholder. Nanti kita isi dengan section Contact.
+    </p>
+  </section>
 </BaseLayout>
