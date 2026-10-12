@@ -44,6 +44,19 @@ export const ui = {
     'about.facts.focus_label': 'Fokus',
     'about.facts.languages_label': 'Bahasa',
     'about.facts.learning_label': 'Sedang Belajar',
+
+    // Experience
+    'exp.label': 'Pengalaman',
+    'exp.heading': 'Dari ruang rapat ke ruang kelas — sekarang saya bekerja di keduanya.',
+    'exp.current.title': 'Sedang Berjalan',
+    'exp.professional.title': 'Pengalaman Profesional',
+    'exp.internship.title': 'Magang',
+    'exp.parttime.title': 'Part-time & Mentoring',
+    'exp.view_detail': 'Lihat dokumentasi',
+    'exp.active': 'Aktif',
+    'exp.type.fulltime': 'Full-time',
+    'exp.type.internship': 'Magang',
+    'exp.type.parttime': 'Part-time',
   },
   en: {
     // Navigation
@@ -78,6 +91,19 @@ export const ui = {
     'about.facts.focus_label': 'Focus',
     'about.facts.languages_label': 'Languages',
     'about.facts.learning_label': 'Currently Learning',
+
+    // Experience
+    'exp.label': 'Experience',
+    'exp.heading': 'From meeting rooms to classrooms — now working in both.',
+    'exp.current.title': 'Currently Active',
+    'exp.professional.title': 'Professional Experience',
+    'exp.internship.title': 'Internships',
+    'exp.parttime.title': 'Part-time & Mentoring',
+    'exp.view_detail': 'View documentation',
+    'exp.active': 'Active',
+    'exp.type.fulltime': 'Full-time',
+    'exp.type.internship': 'Internship',
+    'exp.type.parttime': 'Part-time',
   },
   ar: {
     // التنقل
@@ -101,9 +127,9 @@ export const ui = {
     // من أنا
     'about.label': 'من أنا',
     'about.heading': 'أستمع أولاً، ثم أتحدث.',
-    'about.p1': 'اسمي نافع عين النعيم. تخرجت في العلاقات العامة من جامعة ديان نوسانتارا، ودرست اللغة العربية في معهد العلوم الإسلامية والعربية (ليبيا) بجاكرتا. هاتان الخلفيتان شكّلتا طريقة عملي: أستمع قبل أن أتحدث، وأهتم بالتفاصيل لأن الأمور الصغيرة كثيراً ما تحدد النتيجة.',
+    'about.p1': 'اسمي نافع عين النعيم. تخرجت في العلاقات العامة من جامعة ديان نوسانتارا، ودرست اللغة العربية في معهد العلوم الإسلامية والعربية (ليبيا) بجاكرتا. هاتان الخلفيتان شكّلتا طريقة عملي: أستمع قبل أن أتحدث، وأهتم بالتفاصيل.',
     'about.p2': 'عملت لمدة سنة كموظف ضبط المستندات في شركة اتصالات — أُدير المستندات التشغيلية والعقود والأرشيف السري باستخدام SAP ERP وإكسل المتقدم. قبل ذلك، تدربت في برتامينا (العلاقات الإعلامية وغرفة الأخبار)، وترأست مشروع تسويق رقمي، ونسّقت شركة ناشئة متعلقة بتغير المناخ.',
-    'about.p3': 'حالياً أعمل كمدرس خاص للغة العربية لطلاب الجامعة، ومرشد سياحي، ومترجم للغة العربية. وفي الوقت نفسه، أتعمق في تطوير الويب — ومن المشاريع التي أكملتها تطبيق لتسجيل حفظ القرآن والتلاوة للطلاب، بُني بتوجيه الذكاء الاصطناعي لا باستخدامه فقط.',
+    'about.p3': 'حالياً أعمل كمدرس خاص للغة العربية لطلاب الجامعة، ومرشد سياحي، ومترجم للغة العربية. وفي الوقت نفسه، أتعمق في تطوير الويب — ومن المشاريع التي أكملتها تطبيق لتسجيل حفظ القرآن والتلاوة للطلاب، بُني بتوجيه الذكاء الاصطناعي.',
     'about.quote': 'أؤمن أن التواصل الجيد والأنظمة المنظمة ستبقى دائماً مطلوبة — في أي مجال.',
     'about.facts.location': 'بيكاسي، إندونيسيا',
     'about.facts.focus': 'التواصل والأنظمة الرقمية',
@@ -112,6 +138,19 @@ export const ui = {
     'about.facts.focus_label': 'التركيز',
     'about.facts.languages_label': 'اللغات',
     'about.facts.learning_label': 'أتعلم حالياً',
+
+    // الخبرات
+    'exp.label': 'الخبرات',
+    'exp.heading': 'من قاعات الاجتماعات إلى الفصول الدراسية — أعمل في كليهما الآن.',
+    'exp.current.title': 'قيد العمل حالياً',
+    'exp.professional.title': 'الخبرة المهنية',
+    'exp.internship.title': 'التدريب',
+    'exp.parttime.title': 'دوام جزئي وإرشاد',
+    'exp.view_detail': 'عرض الوثائق',
+    'exp.active': 'نشط',
+    'exp.type.fulltime': 'دوام كامل',
+    'exp.type.internship': 'تدريب',
+    'exp.type.parttime': 'دوام جزئي',
   },
 } as const;
 
