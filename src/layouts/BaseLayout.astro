@@ -1,0 +1,109 @@
+---
+/**
+ * BaseLayout — Layout utama untuk semua halaman
+ * Berisi: SEO meta tags, Open Graph, JSON-LD, font preload
+ */
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  lang?: 'id' | 'en' | 'ar';
+}
+
+const {
+  title = "Nafi Ainun Na'im — Public Relations Graduate & Web Builder",
+  description = "Portfolio Nafi Ainun Na'im. Lulusan Ilmu Komunikasi dengan pengalaman document control, kini freelance Arabic tutor, tour guide, dan translator. Jelajahi pengalaman, proyek, dan cara menghubungi saya.",
+  image = "/og-image.webp",
+  lang = "id",
+} = Astro.props;
+
+const siteUrl = "https://nafiainun.dev";
+const canonicalURL = new URL(Astro.url.pathname, siteUrl);
+const ogImage = new URL(image, siteUrl);
+
+// Tentukan arah teks (RTL untuk Arab)
+const dir = lang === 'ar' ? 'rtl' : 'ltr';
+
+// Structured Data — Person schema
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Nafi Ainun Na'im",
+  "jobTitle": "Public Relations Graduate, Document Control Specialist, & Web Builder",
+  "url": siteUrl,
+  "image": ogImage.toString(),
+  "sameAs": [
+    "https://www.linkedin.com/in/nafiainun/",
+    "https://github.com/nafiainun",
+    "https://www.instagram.com/nafiainun/"
+  ],
+  "alumniOf": [
+    {
+      "@type": "CollegeOrUniversity",
+      "name": "Dian Nusantara University"
+    },
+    {
+      "@type": "CollegeOrUniversity",
+      "name": "Institute of Islamic and Arabic Sciences (LIPIA)"
+    }
+  ],
+  "knowsLanguage": ["id", "en", "ar"],
+  "description": "Lulusan Ilmu Komunikasi dengan pengalaman di document control. Kini freelance Arabic tutor, tour guide, dan translator, sambil membangun aplikasi web."
+};
+---
+
+<!DOCTYPE html>
+<html lang={lang} dir={dir}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- ============ SEO: Primary Meta Tags ============ -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- ============ SEO: Open Graph / Facebook / WhatsApp / LinkedIn ============ -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content={lang === 'id' ? 'id_ID' : lang === 'ar' ? 'ar_SA' : 'en_US'} />
+    <meta property="og:site_name" content="Nafi Ainun Na'im" />
+
+    <!-- ============ SEO: Twitter Card ============ -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalURL} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- ============ SEO: Additional ============ -->
+    <meta name="author" content="Nafi Ainun Na'im" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#FDFCF7" />
+
+    <!-- ============ Favicon ============ -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- ============ Font Preconnect (performance) ============ -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- ============ Structured Data (JSON-LD) ============ -->
+    <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+
+    <!-- ============ Hreflang untuk multibahasa ============ -->
+    <link rel="alternate" hreflang="id" href={`${siteUrl}/id/`} />
+    <link rel="alternate" hreflang="en" href={`${siteUrl}/en/`} />
+    <link rel="alternate" hreflang="ar" href={`${siteUrl}/ar/`} />
+    <link rel="alternate" hreflang="x-default" href={`${siteUrl}/en/`} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
