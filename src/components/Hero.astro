@@ -5,6 +5,7 @@
  */
 
 import { t, defaultLang } from '../i18n/ui';
+import nafiImage from '../assets/images/nafi-3d.png';
 
 interface Props {
   lang?: 'id' | 'en' | 'ar';
@@ -80,11 +81,18 @@ const nameLine2 = "Na'im";
     </div>
 
     <!-- Visual kanan (blob organik dulu, nanti diganti foto) -->
-    <div class="hero__visual" aria-hidden="true">
+    <!-- Visual kanan — 3D Character -->
+    <div class="hero__visual">
       <div class="hero__visual-frame">
-        <div class="hero__visual-placeholder">
-          <span class="hero__visual-initial">N</span>
-        </div>
+        <img
+          src={nafiImage.src}
+          alt="Nafi Ainun Na'im — 3D portrait"
+          class="hero__visual-img"
+          width="600"
+          height="750"
+          loading="eager"
+          fetchpriority="high"
+        />
       </div>
     </div>
   </div>
@@ -402,21 +410,13 @@ const nameLine2 = "Na'im";
     }
   }
 
-  .hero__visual-placeholder {
+  .hero__visual-img {
     position: absolute;
     inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .hero__visual-initial {
-    font-family: var(--font-heading);
-    font-size: 8rem;
-    font-weight: var(--weight-bold);
-    color: var(--color-primary);
-    opacity: 0.5;
-    line-height: 1;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center center;
   }
 
   /* ---------- Responsive ---------- */
