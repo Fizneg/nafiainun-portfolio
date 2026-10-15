@@ -1,0 +1,350 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Tag from '../../../components/ui/Tag.astro';
+import '../../../styles/global.css';
+
+// Import gambar dari src/assets (Astro akan optimasi otomatis)
+import img1 from '../../../assets/images/web-hafalan-1.jpg';
+import img2 from '../../../assets/images/web-hafalan-2.jpg';
+import img3 from '../../../assets/images/web-hafalan-3.jpg';
+
+// Map: path string di markdown → import gambar
+const imageMap: Record<string, string> = {
+  '/src/assets/images/web-hafalan-1.jpg': img1.src,
+  '/src/assets/images/web-hafalan-2.jpg': img2.src,
+  '/src/assets/images/web-hafalan-3.jpg': img3.src,
+};
+
+// 1. Generate static paths untuk semua project
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  const languages = ['id', 'en', 'ar'];
+
+  return languages.flatMap((lang) =>
+    projects.map((project) => ({
+      params: { lang, slug: project.id },
+      props: { project },
+    }))
+  );
+}
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+
+// 2. Ambil data project
+const { project } = Astro.props;
+
+// 3. Ambil bahasa dari URL
+const lang = (Astro.params.lang ?? 'id') as 'id' | 'en' | 'ar';
+
+// 4. Siapkan gambar: map string path → imported image
+const images = (project.data.images ?? []).map((img) => ({
+  src: imageMap[img.src] ?? img.src,
+  alt: img.alt,
+}));
+
+const mainImage = images[0];
+---
+
+<BaseLayout
+  title={`${project.data.title} — Nafi Ainun Na'im`}
+  description={project.data.description}
+  lang={lang}
+>
+  <main class="container section">
+    <article class="case-study">
+
+      <!-- Hero Section -->
+      <header class="case-study__hero">
+        <a href={`/${lang}/#projects`} class="case-study__back-link">
+          ← Kembali ke Proyek
+        </a>
+        <h1 class="case-study__title">{project.data.title}</h1>
+        <p class="case-study__tagline">{project.data.tagline}</p>
+
+        <div class="case-study__actions">
+          {project.data.demoUrl && (
+            <a
+              href={project.data.demoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn--primary"
+            >
+              Lihat Demo Langsung →
+            </a>
+          )}
+          {project.data.repoUrl && (
+            <a
+              href={project.data.repoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn--ghost"
+            >
+              Lihat di GitHub
+            </a>
+          )}
+        </div>
+      </header>
+
+      <!-- Main Image -->
+      {mainImage && (
+        <div class="case-study__main-image">
+          <img src={mainImage.src} alt={mainImage.alt} />
+        </div>
+      )}
+
+      <!-- Content Grid -->
+      <div class="case-study__content">
+
+        <!-- Sidebar: Quick Facts -->
+        <aside class="case-study__sidebar">
+          <div class="case-study__info-card">
+            <h3>Peran Saya</h3>
+            <p>{project.data.role}</p>
+          </div>
+
+          <div class="case-study__info-card">
+            <h3>Tahun</h3>
+            <p>{project.data.year}</p>
+          </div>
+
+          <div class="case-study__info-card">
+            <h3>Tech Stack</h3>
+            <div class="case-study__tech-tags">
+              {project.data.tech.map((item) => <Tag>{item}</Tag>)}
+            </div>
+          </div>
+        </aside>
+
+        <!-- Main Body: The Story -->
+        <div class="case-study__body">
+          <section>
+            <h2>Latar Belakang</h2>
+            <p>{project.data.problem}</p>
+          </section>
+
+          <section>
+            <h2>Solusi</h2>
+            <p>{project.data.solution}</p>
+          </section>
+
+          <section>
+            <h2>Fitur Utama</h2>
+            <ul>
+              {project.data.features.map((feature) => <li>{feature}</li>)}
+            </ul>
+          </section>
+
+          <section>
+            <h2>Hasil & Pelajaran</h2>
+            <p>{project.data.results}</p>
+          </section>
+        </div>
+
+      </div>
+
+    </article>
+  </main>
+</BaseLayout>
+
+<style>
+  .case-study {
+    max-width: 860px;
+    margin: 0 auto;
+    padding-top: var(--space-8);
+  }
+
+  /* ---------- Hero ---------- */
+  .case-study__hero {
+    margin-bottom: var(--space-12);
+    text-align: center;
+  }
+
+  .case-study__back-link {
+    display: inline-block;
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    text-decoration: none;
+    margin-bottom: var(--space-8);
+    transition: color var(--transition-fast);
+  }
+  .case-study__back-link:hover { color: var(--color-primary); }
+
+  .case-study__title {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: var(--weight-semibold);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin: 0 0 var(--space-4) 0;
+    text-wrap: balance;
+  }
+
+  .case-study__tagline {
+    font-size: var(--text-body-lg);
+    color: var(--color-text-muted);
+    margin: 0 auto var(--space-8) auto;
+    max-width: 58ch;
+    line-height: 1.55;
+  }
+
+  .case-study__actions {
+    display: flex;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-6);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+    text-decoration: none;
+    border-radius: var(--radius-lg);
+    transition: all var(--transition-base);
+    line-height: 1;
+  }
+  .btn--primary {
+    background: var(--color-primary);
+    color: #FFF;
+  }
+  .btn--primary:hover {
+    background: var(--color-primary-hover);
+    color: #FFF;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-primary);
+  }
+  .btn--ghost {
+    background: transparent;
+    color: var(--color-text);
+    border: 1.5px solid var(--color-border-strong);
+  }
+  .btn--ghost:hover {
+    border-color: var(--color-text);
+    background: var(--color-surface);
+    color: var(--color-text);
+  }
+
+  /* ---------- Main Image (dengan constraint) ---------- */
+  .case-study__main-image {
+    margin-bottom: var(--space-16);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--color-border);
+    background: var(--color-surface-alt);
+    max-height: 480px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .case-study__main-image img {
+    width: 100%;
+    height: auto;
+    max-height: 480px;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+  }
+
+  /* ---------- Content Grid ---------- */
+  .case-study__content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-12);
+  }
+  @media (min-width: 768px) {
+    .case-study__content {
+      grid-template-columns: 220px 1fr;
+      gap: var(--space-16);
+    }
+  }
+
+  /* ---------- Sidebar ---------- */
+  .case-study__sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+  @media (min-width: 768px) {
+    .case-study__sidebar {
+      position: sticky;
+      top: 6rem;
+      align-self: start;
+    }
+  }
+
+  .case-study__info-card {
+    background: var(--color-surface-alt);
+    padding: var(--space-5);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+  }
+  .case-study__info-card h3 {
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-muted);
+    margin: 0 0 var(--space-2) 0;
+    font-family: var(--font-body);
+    font-weight: var(--weight-semibold);
+  }
+  .case-study__info-card p {
+    margin: 0;
+    font-size: var(--text-sm);
+    line-height: 1.55;
+    color: var(--color-text);
+  }
+  .case-study__tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-top: var(--space-2);
+  }
+
+  /* ---------- Body ---------- */
+  .case-study__body section {
+    margin-bottom: var(--space-10);
+  }
+  .case-study__body section:last-child {
+    margin-bottom: 0;
+  }
+  .case-study__body h2 {
+    font-family: var(--font-heading);
+    font-size: var(--text-h3);
+    font-weight: var(--weight-semibold);
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    margin: 0 0 var(--space-4) 0;
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .case-study__body p,
+  .case-study__body li {
+    font-size: var(--text-body);
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    margin: 0 0 var(--space-4) 0;
+    max-width: 68ch;
+  }
+  .case-study__body p:last-child {
+    margin-bottom: 0;
+  }
+  .case-study__body ul {
+    padding-left: var(--space-5);
+    margin: 0;
+  }
+  .case-study__body li {
+    margin-bottom: var(--space-2);
+    padding-left: var(--space-2);
+  }
+  .case-study__body li::marker {
+    color: var(--color-primary);
+  }
+
+</style>
